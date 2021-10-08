@@ -1,0 +1,116 @@
+<template>
+	<div>
+		<main class="login">
+			<div class="login_container">
+				<div class="login_title">
+					<h2>셀미 ADMIN</h2>
+				</div>
+
+				<form class="form_login">
+					<div class="longin_id">
+						<label for="idInput">아이디</label>
+						<input type="text" name="adminId" id="idInput" placeholder="아이디를 입력해주세요." v-model="id" />
+						<span class="errmess" v-if="idError">이메일 주소를 입력해주세요.</span>
+					</div>
+					<div class="longin_password">
+						<label for="passwordInput">비밀번호</label>
+						<input type="password" id="passwordInput" placeholder="비밀번호를 입력해주세요." v-model="pw" />
+						<span class="errmess" v-if="pwError">비밀번호를 입력해주세요.</span>
+					</div>
+					<div>
+						<button type="button" id="loginBtn" @click="login">로그인</button>
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer>
+			<div class="footer_container">
+				<div class="footer_logo">SellME</div>
+				<div class="footer_phone">02-539-1779</div>
+				<div class="footer_email">sellme.dev@gmail.com</div>
+				<div class="footer_guide"><a>이용약관</a></div>
+				<div class="footer_policy"><a>개인정보 처리방침</a></div>
+				<div class="footer_copyright">copyright © (주)렛유인 all rights reserved.</div>
+			</div>
+		</footer>
+	</div>
+</template>
+
+<script>
+import $ from 'jquery';
+import { getAccessTokenCookie, getAdminUserSidCookie, deleteCookie } from '@/utils/cookie';
+import { mapGetters } from 'vuex';
+import loginAlertModal from '@/components/modal/LoginAlert';
+import { getPopupOpt } from '@/utils/modal';
+import { verifyEmail } from '@/utils/validate';
+export default {
+	computed: {
+		...mapGetters('login', ['getLoginInfo']),
+	},
+	data() {
+		return {
+			username: '',
+			password: '',
+			logMessage: '',
+			id: '',
+			pw: '',
+			idError: false,
+			pwError: false,
+		};
+	},
+	mounted() {
+		let token = getAccessTokenCookie();
+		let id = getAdminUserSidCookie();
+		if (token == null && id !== null) {
+			alert('토근이 만료됬습니다.');
+			deleteCookie('adminUserSid');
+		}
+		$('.layout').hide();
+	},
+	methods: {
+		login() {
+			if (this.id !== '') {
+				let result = verifyEmail(this.id);
+				if (result == false) {
+					this.idError = true;
+					return false;
+				}
+			} else {
+				this.idError = true;
+				return false;
+			}
+			if (this.pw == '') {
+				this.pwError = true;
+				return false;
+			}
+			this.submitLogin();
+		},
+		//알럿 모달
+		showModalPopup() {
+			this.$modal.show(loginAlertModal, {}, getPopupOpt('loginAlertModal', '280px', 'auto', false));
+		},
+		async submitLogin() {
+			try {
+				const userData = {
+					adminUserEmail: this.username,
+					password: this.password,
+				};
+				await this.$store.dispatch('login/LOGIN', userData);
+				if (this.getLoginInfo.errorCode == 200) {
+					this.$router.push('/main');
+				} else {
+					this.logMessage = this.getLoginInfo.errorMessage;
+				}
+			} catch (error) {
+				console.log('error:', error);
+			} finally {
+				this.initForm();
+			}
+		},
+		initForm() {
+			this.username = '';
+			this.password = '';
+		},
+	},
+};
+</script>
