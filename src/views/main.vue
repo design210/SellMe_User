@@ -1,24 +1,9 @@
 <template>
-	<section class="container"></section>
+	<div></div>
 </template>
 
 <script>
-import $ from 'jquery';
-export default {
-	data() {
-		return {};
-	},
-	mounted() {
-		$('.layout').show();
-	},
-};
+export default {};
 </script>
 
-<style lang="scss" scoped>
-.tree-menu {
-	display: flex;
-	& > div {
-		width: 50%;
-	}
-}
-</style>
+<style></style>

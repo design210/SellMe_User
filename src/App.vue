@@ -2,11 +2,9 @@
 	<v-app>
 		<v-main class="main-container">
 			<div class="layout">
-				<router-view name="ui"></router-view>
-				<div class="layout-right">
-					<router-view name="top"></router-view>
-					<router-view name="contents" class="contents"></router-view>
-				</div>
+				<router-view name="top"></router-view>
+				<router-view name="contents" class="contents"></router-view>
+				<router-view name="footer"></router-view>
 			</div>
 			<router-view />
 			<v-progress-circular :size="70" :width="7" color="amber" indeterminate class="spinner" v-if="loadingStatus"></v-progress-circular>
@@ -38,12 +36,22 @@ export default {
 	},
 };
 </script>
-<style>
+<style lang="scss">
 .spinner {
 	position: fixed !important;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 99999;
+}
+.logout {
+	& a {
+		color: #808080 !important;
+	}
+}
+footer {
+	& a {
+		color: #808080 !important;
+	}
 }
 </style>

@@ -1,20 +1,16 @@
 <template>
-	<section class="top">
-		<nav class="gnb">
-			<ul>
-				<li v-for="(item, index) in menuList" :key="index" @click="lnbSet(item.sysCodeName)">
-					<router-link :to="item.sysCodeVal1"
-						><span>{{ item.sysCodeName }}</span></router-link
-					>
-				</li>
-			</ul>
-		</nav>
-		<div class="d-flex">
-			<div class="logout">
-				<a href="javascript:;" @click="logout"><v-icon>mdi-logout</v-icon>로그아웃</a>
+	<header>
+		<div class="header_container">
+			<div class="header_logo">
+				로고img
+				<img src="#" alt="" />
+			</div>
+			<div class="header_currentPage">(주)컴퍼니제이 지원자 관리 시스템</div>
+			<div class="header_status">
+				<div class="logout"><a href="#">로그아웃</a></div>
 			</div>
 		</div>
-	</section>
+	</header>
 </template>
 
 <script>

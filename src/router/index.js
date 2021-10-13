@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { getAccessTokenCookie } from '@/utils/cookie';
-const ui = () => import('@/components/common/Ui.vue');
+const footer = () => import('@/components/common/Footer.vue');
 const top = () => import('@/components/common/Top.vue');
 
 Vue.use(VueRouter);
@@ -24,10 +24,19 @@ const router = new VueRouter({
 			name: 'main',
 			meta: { lnb: 'system' },
 			components: {
-				ui,
 				top,
 				contents: () => import('@/views/main.vue'),
 			},
+		},
+		{
+			path: '/applicant/detail',
+			name: 'applicant_detail',
+			components: {
+				top,
+				footer,
+				contents: () => import('@/views/applicant/applicantDetail.vue'),
+			},
+			meta: { unauthorized: true },
 		},
 		//404
 		{
