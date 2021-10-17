@@ -11,7 +11,7 @@ const router = new VueRouter({
 	routes: [
 		{
 			path: '/',
-			redirect: '/main',
+			redirect: '/login',
 		},
 		{
 			path: '/login',
@@ -36,7 +36,6 @@ const router = new VueRouter({
 				footer,
 				contents: () => import('@/views/applicant/applicantDetail.vue'),
 			},
-			meta: { unauthorized: true },
 		},
 		//404
 		{

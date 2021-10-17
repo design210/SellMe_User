@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setInterceprors } from '@/api/common/interceptors';
-export const baseURL = 'https://api.channeltune.net/api/v1';
+export const baseURL = 'http://3.38.88.178:3000';
 //헤더 인터셉터
 function createInstanceWithAuth(url, paramData, parmas, type) {
 	const instance = axios.create({

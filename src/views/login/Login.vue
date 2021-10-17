@@ -3,7 +3,9 @@
 		<main class="login">
 			<div class="login_container">
 				<div class="login_title">
-					<h2>셀미 ADMIN</h2>
+					<h4>셀미 자기소개 영상 채용</h4>
+					<h2>기업 관리자 로그인</h2>
+					<!-- <h2>셀미 ADMIN</h2> -->
 				</div>
 
 				<form class="form_login">
@@ -28,8 +30,6 @@
 </template>
 
 <script>
-import $ from 'jquery';
-import { getAccessTokenCookie, getAdminUserSidCookie, deleteCookie } from '@/utils/cookie';
 import { mapGetters } from 'vuex';
 import loginAlertModal from '@/components/modal/LoginAlert';
 import { getPopupOpt } from '@/utils/modal';
@@ -50,15 +50,6 @@ export default {
 			idError: false,
 			pwError: false,
 		};
-	},
-	mounted() {
-		let token = getAccessTokenCookie();
-		let id = getAdminUserSidCookie();
-		if (token == null && id !== null) {
-			alert('토근이 만료됬습니다.');
-			deleteCookie('adminUserSid');
-		}
-		$('.layout').hide();
 	},
 	methods: {
 		login() {
@@ -85,14 +76,14 @@ export default {
 		async submitLogin() {
 			try {
 				const userData = {
-					adminUserEmail: this.username,
-					password: this.password,
+					id: this.id,
+					password: this.pw,
 				};
 				await this.$store.dispatch('login/LOGIN', userData);
-				if (this.getLoginInfo.errorCode == 200) {
+				if (this.getLoginInfo.token !== '') {
 					this.$router.push('/main');
 				} else {
-					this.logMessage = this.getLoginInfo.errorMessage;
+					this.logMessage = this.getLoginInfo.message;
 				}
 			} catch (error) {
 				console.log('error:', error);
@@ -101,8 +92,8 @@ export default {
 			}
 		},
 		initForm() {
-			this.username = '';
-			this.password = '';
+			this.id = '';
+			this.pw = '';
 		},
 	},
 };

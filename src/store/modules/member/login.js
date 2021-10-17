@@ -1,5 +1,5 @@
 import { loginUser, loginout } from '@/api/member/login';
-import { saveAccessTokenCookie, adminUserSidCookie, adminUserNameCookie, deleteCookie } from '@/utils/cookie';
+import { saveAccessTokenCookie, deleteCookie, saveCompanyNameCookie, saveCompanyLogoCookie } from '@/utils/cookie';
 const member = {
 	namespaced: true,
 	state: {
@@ -18,19 +18,12 @@ const member = {
 	actions: {
 		async LOGIN({ commit }, userData) {
 			const { data } = await loginUser(userData);
-			const result = data.channeltuneApiResult.login;
-			if (result.errorCode == 200) {
-				saveAccessTokenCookie(result.access_token.access_token);
-				adminUserSidCookie(result.access_token.current_user.adminUserSid);
-				adminUserNameCookie(result.access_token.current_user.adminUserName);
+			if (data.token !== '') {
+				saveAccessTokenCookie(data.token);
+				saveCompanyNameCookie(data.user.companyName);
+				saveCompanyLogoCookie(data.user.companyLogo);
 			}
-			commit('getLoginInfo', result);
-		},
-		async LOGOUT() {
-			await loginout();
-			deleteCookie('accessToken');
-			deleteCookie('adminUserSid');
-			deleteCookie('adminUserName');
+			commit('getLoginInfo', data);
 		},
 	},
 };
