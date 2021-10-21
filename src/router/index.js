@@ -14,19 +14,14 @@ const router = new VueRouter({
 			redirect: '/login',
 		},
 		{
+			path: '/main',
+			redirect: '/applicant/list',
+		},
+		{
 			path: '/login',
 			name: 'login',
 			component: () => import('@/views/login/Login.vue'),
 			meta: { unauthorized: true },
-		},
-		{
-			path: '/main',
-			name: 'main',
-			meta: { lnb: 'system' },
-			components: {
-				top,
-				contents: () => import('@/views/main.vue'),
-			},
 		},
 		{
 			path: '/applicant/detail',
@@ -35,6 +30,15 @@ const router = new VueRouter({
 				top,
 				footer,
 				contents: () => import('@/views/applicant/applicantDetail.vue'),
+			},
+		},
+		{
+			path: '/applicant/list',
+			name: 'applicant_list',
+			components: {
+				top,
+				footer,
+				contents: () => import('@/views/applicant/applicantList.vue'),
 			},
 		},
 		//404

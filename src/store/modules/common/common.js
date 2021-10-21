@@ -1,26 +1,23 @@
-import { fileDelete, getMenuList } from '@/api/common/common';
+import { fileUpload } from '@/api/common/common';
 const common = {
 	namespaced: true,
 	state: {
-		getMenuList: {},
+		getFileInfo: {},
 	},
 	getters: {
-		getMenuList: state => {
-			return state.getMenuList;
+		getFileInfo: state => {
+			return state.getFileInfo;
 		},
 	},
 	mutations: {
-		getMenuList(state, data) {
-			state.getMenuList = data;
+		getFileInfo(state, data) {
+			state.getFileInfo = data;
 		},
 	},
 	actions: {
-		async FILE_DELETE({ commit }, id) {
-			await fileDelete(id);
-		},
-		async MENU_LIST({ commit }, id) {
-			const { data } = await getMenuList(id);
-			commit('getMenuList', data);
+		async FILE_UPLOAD({ commit }, datas) {
+			const { data } = await fileUpload(datas);
+			commit('getFileInfo', data);
 		},
 	},
 };

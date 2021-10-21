@@ -13,19 +13,18 @@
 						><span class="profile_email">letuin.sellme@gmail.com</span>
 					</div>
 				</div>
-				<div class="btn">
+				<div class="pageBtn">
 					<button type="button" class="prev_profile"><img src="@/assets/img/arrow_L.svg" alt="" /></button>
 					<img src="@/assets/img/icon_person.svg" alt="" />
 					<button type="button" class="next_profile"><img src="@/assets/img/arrow_R.svg" alt="" /></button>
 				</div>
 			</div>
 		</div>
-
 		<div class="main_profile">
 			<div class="main_profile_container">
 				<div class="contents_left">
 					<div class="portpolio_video">
-						<h2><img src="@/assets/img/img_pin.png" alt="" />'<span>김요다</span>'님의 지원 영상</h2>
+						<h2><img src="/img/img_pin.png" alt="" />'<span>김요다</span>'님의 지원 영상</h2>
 						<div class="desc_video">
 							<h5>
 								<img src="@/assets/img/icon_Q.svg" alt="" /> 직무와 연관된 자신의 장점을 포함하여 자신을 소개하는 영상을 제출하세요. (최대 80초)
@@ -156,8 +155,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.profile_career {
-	margin-left: 5px;
-}
-</style>
+<style></style>

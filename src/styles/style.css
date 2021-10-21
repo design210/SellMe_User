@@ -1,8 +1,10 @@
+.v-application ul{padding-left:0 !important}
 *{
 	font-family: 'Noto Sans KR', sans-serif, 'Roboto';
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	letter-spacing: -0.45px; 
 }
 main{
 	min-height: 100%;
@@ -38,7 +40,7 @@ header{
     margin-top: 13px;
 	margin-left: 10px;
 	text-align: left;
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 700;	
 }
 .header_status{
@@ -205,12 +207,12 @@ input::-webkit-input-placeholder{
 	text-align: left;
 	margin-top: 24px;
 }
-.header_profile_container .btn{
+.header_profile_container .pageBtn{
 	float: right;
 	margin-top: 34px;
 }
 .header_profile_container button{
-	border: 1px solid #F5F5F5;
+	border: 0;
 	cursor: pointer;
 	box-shadow: none;
 	background-color: transparent;
@@ -247,10 +249,12 @@ input::-webkit-input-placeholder{
 .profile_phone{
 	color: #1A1A1A;
 	font-size: 13px;
+	line-height: 0;
 }
 .profile_email{
 	color: #1A1A1A;
 	font-size: 13px;
+	line-height: 0;
 }
 
 /* 지원자 상세 페이지 main contents  */
@@ -367,10 +371,6 @@ input::-webkit-input-placeholder{
 	font-size: 13px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	/* display: flex;
-	align-content: flex-start;
-	flex-direction: row;
-	flex-wrap: wrap; */
 }
 .memo_list li{
 	margin-bottom: 5px;
@@ -403,32 +403,41 @@ hr{
 }
 
 /* 지원자 리스트 페이지 */
+.appList_container{
+	display: flex;
+}
 nav{
-	width: 200px;
-	height: 830px;
+	min-width: 200px;
 	background-color: #343434;	
-	float: left;
-	margin-right: 80px;
-	/* position: fixed; */
+	margin-right: 40px;
 }
 nav p{
 	font-size: 13px;
 	font-weight: 700;
 	color: #959595;
-	margin: 15px 15px;
+	margin: 32px 25px 15px 25px;
 }
 nav ul li{
 	width: 170px;
 	height: 36px;
 	line-height: 36px;
-	font-weight: 700;
 	display: block;
-	margin: 5px auto;
+	margin: 5px auto;	
+	border-radius: 4px;
+	text-align: center;	
 }
-nav ul li a{
+.position_name li:hover{
+	background-color: rgba(247, 33, 0, 0.3);
+	font-weight: 700;
+}
+.position_name li.selected{
+	background-color: rgba(247, 33, 0, 0.3);
+	font-weight: 700;
+}
+
+nav ul li{
 	text-decoration: none;
 	font-size: 15px;
-	font-weight: 700;
 	color: #FFFFFF;
 }
 .app_container{
@@ -436,10 +445,8 @@ nav ul li a{
 	margin: 0 auto;
 }
 .applicantList{
-	/* margin: 0 auto; */
+	margin: 0 auto;
 	max-width: 1080px;
-	height: 830px;
-	float: left;
 }
 .applicantList h2{
 	font-size: 24px;
@@ -454,26 +461,28 @@ nav ul li a{
 	height: 52px;
 	background-color: #F4F4F4;
 	border-radius: 4px;
-	margin-top: 25px;
+	border: 1px solid #EBEBEB;
+	margin-top: 24px;
 }
 .tab_all{
 	width: 158px;
 	height: 40px;
-	margin: 8px;	
+	margin: 5px;	
 	border-radius: 5px;
 	font-size: 16px;
-	font-weight: 700;
 	text-align: center;
 	line-height: 40px;
 	cursor: pointer;
 	background-color: #1A1A1A;
+	font-weight: 700;
 	color: #FFFFFF;	
+	box-shadow: 0 0 2px #1A1A1A;
 	float: left;
 }
 .tab_liked{
 	width: 158px;
 	height: 40px;
-	margin: 8px;	
+	margin: 5px;	
 	border-radius: 5px;
 	font-size: 16px;
 	font-weight: 700;
@@ -481,6 +490,7 @@ nav ul li a{
 	line-height: 40px;
 	cursor: pointer;
 	background-color: #F4F4F4;
+	font-weight: 500;
 	color: #797979;
 	float: left;
 }
@@ -502,6 +512,10 @@ nav ul li a{
 	vertical-align: middle;
 	margin-right: 5px;
 }
+
+.applicantList_empty{
+	display: none;
+}
 .applicantList_zero{
 	margin: 200px 430px;
 }
@@ -522,13 +536,15 @@ nav ul li a{
 }
 .app_div1{
 	float: left;
-	margin-top: 47px;
+	margin-top: 44px;
 }
 .app_name{
 	font-size: 22px;
 	font-weight: 700;
-	color: #1A1A1A;
-	/* background-color: yellow;	 */
+}
+.app_name a{
+	text-decoration: none;
+	color: #1A1A1A;	
 }
 .app_career{
 	font-size: 13px;
@@ -546,10 +562,12 @@ nav ul li a{
 	margin-top: 47px;
 }
 .app_M{
+	font-size: 14px;
 	font-weight: 700;
 	color: #808080;
 }
 .app_E{
+	font-size: 14px;
 	font-weight: 700;
 	color: #808080;
 }
@@ -557,11 +575,13 @@ nav ul li a{
 	font-size: 14px;
 	font-weight: 400;
 	color: #1A1A1A;
+	line-height: 0;
 }
 .app_email{
 	font-size: 14px;
 	font-weight: 400;
 	color: #1A1A1A;
+	line-height: 0;
 }
 .app_div4{
 	float: left;
@@ -571,17 +591,22 @@ nav ul li a{
 	font-size: 12px;
 	color: #808080;
 	text-align: right;
+	cursor: pointer;
 }
 .app_bookmark img{
 	vertical-align: middle;
-	margin-left: 2px;
+	margin-left: 3px;
+}
+#bookmark_on{
+	display: none;
 }
 .app_applyDate{
 	font-size: 12px;
 	color: #BEBEBE;
 	margin-top: 54px;
+	line-height: 0;
 }
-.pagenation{
+.pagination{
 	width: 174px;
 	height: 22px;
 	margin: 0 auto;
@@ -591,7 +616,19 @@ nav ul li a{
 	color: #1A1A1A;
 	padding-bottom: 90px;
 }
-
+.pagination div{
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	font-size: 13px;
+	cursor: pointer;
+}
+.page_5{
+	background-color: #FFEFED;
+	border-radius: 2px;
+	color: #FF4124;	
+	font-weight: 700;
+}
 
 /* footer */
 footer{
