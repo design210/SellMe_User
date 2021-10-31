@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<v-file-input accept="image/*" label="File input" @change="selectFile" placeholder="파일첨부"></v-file-input>
+		<!-- <v-file-input accept="image/*" label="File input" @change="selectFile" placeholder="파일첨부"></v-file-input> -->
 		<div class="appList_container">
 			<nav>
 				<p>채용 공고</p>
@@ -81,6 +81,7 @@ export default {
 		return {
 			favorite: false,
 			tab: 'all',
+			fileUrl: '',
 		};
 	},
 	mounted() {
@@ -108,10 +109,11 @@ export default {
 				contentType: file.type,
 				fileSize: file.size,
 			});
-			const url = this.getFileInfo.s3Url;
+			//const url = this.getFileInfo.s3Url;
+			const url = 'https://s3.ap-northeast-2.amazonaws.com/sellme.medias/' + this.getFileInfo.fileName;
 			await axios
 				.put(url, file)
-				.then(response => console.log(response))
+				.then(response => (this.fileUrl = response.config.url))
 				.catch(error => console.log(error));
 		},
 	},
