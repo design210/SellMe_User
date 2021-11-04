@@ -2,8 +2,7 @@
 	<header>
 		<div class="header_container">
 			<div class="header_logo">
-				{{ companyLogo }}
-				<img src="#" alt="" />
+				<img :src="companyLogo" alt="" />
 			</div>
 			<div class="header_currentPage">{{ companyName }} 지원자 관리 시스템</div>
 			<div class="header_status">
@@ -31,8 +30,14 @@ export default {
 			deleteCookie('accessToken');
 			deleteCookie('companyName');
 			deleteCookie('companyLogo');
+			deleteCookie('companyUserNo');
 			this.$router.push('/login');
 		},
 	},
 };
 </script>
+<style scoped>
+.header_logo img {
+	height: 20px;
+}
+</style>

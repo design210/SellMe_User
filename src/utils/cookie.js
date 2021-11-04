@@ -9,6 +9,9 @@ function saveCompanyNameCookie(value) {
 function saveCompanyLogoCookie(value) {
 	VueCookies.set('companyLogo', value, '0');
 }
+function saveCompanyUserNoCookie(value) {
+	VueCookies.set('companyUserNo', value, '0');
+}
 //호출
 function getAccessTokenCookie() {
 	return VueCookies.get('accessToken');
@@ -19,12 +22,17 @@ function getCompanyNameCookie() {
 function getCompanyLogoCookie() {
 	return VueCookies.get('companyLogo');
 }
+function getCompanyUserNoCookie() {
+	return VueCookies.get('companyUserNo');
+}
 //삭제
 function deleteCookie(value) {
 	VueCookies.remove(value);
 }
 
 export {
+	saveCompanyUserNoCookie,
+	getCompanyUserNoCookie,
 	saveAccessTokenCookie,
 	deleteCookie,
 	getAccessTokenCookie,

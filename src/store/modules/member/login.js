@@ -1,5 +1,5 @@
-import { loginUser, loginout } from '@/api/member/login';
-import { saveAccessTokenCookie, deleteCookie, saveCompanyNameCookie, saveCompanyLogoCookie } from '@/utils/cookie';
+import { loginUser } from '@/api/member/login';
+import { saveAccessTokenCookie, saveCompanyUserNoCookie, saveCompanyNameCookie, saveCompanyLogoCookie } from '@/utils/cookie';
 const member = {
 	namespaced: true,
 	state: {
@@ -22,6 +22,7 @@ const member = {
 				saveAccessTokenCookie(data.token);
 				saveCompanyNameCookie(data.user.companyName);
 				saveCompanyLogoCookie(data.user.companyLogo);
+				saveCompanyUserNoCookie(data.user.companyUserNo);
 			}
 			commit('getLoginInfo', data);
 		},
