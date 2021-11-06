@@ -84,6 +84,12 @@
 								</div>
 							</li>
 						</ul>
+						<!--지원자 없을 경우 -->
+						<div class="applicantList_empty" v-if="totalCount === 0">
+							<div class="applicantList_zero">
+								<img src="@/assets/img/icon_emptylist_text.svg" />
+							</div>
+						</div>
 						<div>
 							<v-pagination v-model="pageNo" :length="totalPage" :total-visible="10"></v-pagination>
 						</div>
@@ -136,6 +142,12 @@
 								</div>
 							</li>
 						</ul>
+						<!--지원자 없을 경우 -->
+						<div class="applicantList_empty" v-if="totalLikeCount === 0">
+							<div class="applicantList_zero">
+								<img src="@/assets/img/icon_emptylist_text.svg" />
+							</div>
+						</div>
 						<div>
 							<v-pagination v-model="pageLikeNo" :length="totalLikePage" :total-visible="10"></v-pagination>
 						</div>
@@ -161,12 +173,6 @@
 							<td>{{ item.regDate }} {{ item.regTime }}</td>
 						</tr>
 					</table>
-					<!--지원자 없을 경우 -->
-					<div class="applicantList_empty" v-if="applicantList.length === 0">
-						<div class="applicantList_zero">
-							<img src="@/assets/img/icon_emptylist_text.svg" />
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -224,12 +230,10 @@ export default {
 			this.callLikeList();
 		},
 		async callList(data) {
-			console.log(data);
 			if (data !== undefined) {
 				this.postNo = data.postNo;
 				saveAdvertisemenNameCookie(data.subject);
 			}
-			console.log(this.postNo);
 			await this.$store.dispatch('applicant/APPLICANT_ADV_LIST', {
 				id: this.postNo,
 				pageNo: this.pageNo,
@@ -250,13 +254,19 @@ export default {
 				pageNo: this.pageLikeNo,
 				pageSize: this.pageLikeSize,
 			});
-			this.applicantLikeList = this.getApplicantLikeList.result;
-			this.applicantLikeList.forEach(ele => {
-				ele.regTime = ele.regDate.substr(11, 5);
-				ele.regDate = ele.regDate.substr(0, 10);
-			});
-			this.totalLikePage = this.getApplicantLikeList.totalPage;
-			this.totalLikeCount = this.getApplicantLikeList.totalCount;
+			if (this.getApplicantLikeList.msg !== '') {
+				this.totalLikeCount = 0;
+				this.applicantLikeList = [];
+			}
+			if (this.getApplicantLikeList.msg == undefined) {
+				this.applicantLikeList = this.getApplicantLikeList.result;
+				this.applicantLikeList.forEach(ele => {
+					ele.regTime = ele.regDate.substr(11, 5);
+					ele.regDate = ele.regDate.substr(0, 10);
+				});
+				this.totalLikePage = this.getApplicantLikeList.totalPage;
+				this.totalLikeCount = this.getApplicantLikeList.totalCount;
+			}
 		},
 		resetTab() {
 			this.tab = 'all';
@@ -281,11 +291,16 @@ export default {
 					pageNo: 1,
 					pageSize: 10000,
 				});
-				this.excelList = this.getApplicantLikeList.result;
-				this.excelList.forEach(ele => {
-					ele.regTime = ele.regDate.substr(11, 5);
-					ele.regDate = ele.regDate.substr(0, 10);
-				});
+				if (this.getApplicantLikeList.msg !== '') {
+					this.excelList = [];
+				}
+				if (this.getApplicantLikeList.msg == undefined) {
+					this.excelList = this.getApplicantLikeList.result;
+					this.excelList.forEach(ele => {
+						ele.regTime = ele.regDate.substr(11, 5);
+						ele.regDate = ele.regDate.substr(0, 10);
+					});
+				}
 			}
 		},
 		async like(data) {
@@ -295,7 +310,7 @@ export default {
 			this.callList();
 		},
 		detail(id) {
-			this.$router.push(`/applicant/detail/${id}`);
+			this.$router.push(`/applicant/detail/${id}/${this.postNo}`);
 		},
 		downloadExcel() {
 			if (this.excelList.length > 0) {

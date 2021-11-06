@@ -1,4 +1,4 @@
-import { getApplicantList, getApplicantAdvList, getApplicantDetail, getApplicantLikeList } from '@/api/applicant/applicant';
+import { getApplicantList, getApplicantAdvList, getApplicantDetail, getApplicantLikeList, getPostDetail } from '@/api/applicant/applicant';
 const applicant = {
 	namespaced: true,
 	state: {
@@ -6,6 +6,7 @@ const applicant = {
 		getApplicantAdvList: {},
 		getApplicantDetail: {},
 		getApplicantLikeList: {},
+		getPostDetail: {},
 	},
 	getters: {
 		getApplicantList: state => {
@@ -20,6 +21,9 @@ const applicant = {
 		getApplicantLikeList: state => {
 			return state.getApplicantLikeList;
 		},
+		getPostDetail: state => {
+			return state.getPostDetail;
+		},
 	},
 	mutations: {
 		getApplicantList(state, data) {
@@ -33,6 +37,9 @@ const applicant = {
 		},
 		getApplicantLikeList(state, data) {
 			state.getApplicantLikeList = data;
+		},
+		getPostDetail(state, data) {
+			state.getPostDetail = data;
 		},
 	},
 	actions: {
@@ -51,6 +58,10 @@ const applicant = {
 		async APPLICANT_DETAIL({ commit }, datas) {
 			const { data } = await getApplicantDetail(datas);
 			commit('getApplicantDetail', data);
+		},
+		async POST_DETAIL({ commit }, datas) {
+			const { data } = await getPostDetail(datas);
+			commit('getPostDetail', data);
 		},
 	},
 };

@@ -32,9 +32,7 @@
 							>'님의 지원 영상
 						</h2>
 						<div class="desc_video">
-							<h5>
-								<img src="@/assets/img/icon_Q.svg" alt="" /> 직무와 연관된 자신의 장점을 포함하여 자신을 소개하는 영상을 제출하세요. (최대 80초)
-							</h5>
+							<h5><img src="@/assets/img/icon_Q.svg" alt="" /> {{ contents }}</h5>
 							<div class="videoplayer">
 								<video-player class="video-player-box" ref="videoPlayer" :options="playerOptions" :playsinline="true"> </video-player>
 							</div>
@@ -42,16 +40,36 @@
 					</div>
 					<div class="portpolio_resume">
 						<h2><img src="@/assets/img/img_pin.png" alt="" />자기소개서</h2>
-						<div class="textarea">
-							<h5><img src="@/assets/img/icon_Q.svg" alt="" /> 우리 회사에 지원한 이유는? (500자)</h5>
-							<div class="text">
-								현재 질문은 총 5개 입력 가능하며 상황에 맞게 수정해서 사용 바랍니다.<br />
-								{{ answer_1 }}
+						<div class="textarea question">
+							<div v-if="text_question_1 !== ''">
+								<h5><img src="@/assets/img/icon_Q.svg" alt="" /> {{ text_question_1 }}</h5>
+								<div class="text">
+									{{ answer_1 }}
+								</div>
 							</div>
-							<br />
-							<h5><img src="@/assets/img/icon_Q.svg" alt="" /> 이 직무에 본인이 적합한 이유와 자신의 경쟁력은 무엇인가요? (800자)</h5>
-							<div class="text">
-								{{ answer_2 }}
+							<div v-if="text_question_2 !== ''">
+								<h5><img src="@/assets/img/icon_Q.svg" alt="" /> {{ text_question_2 }}</h5>
+								<div class="text">
+									{{ answer_2 }}
+								</div>
+							</div>
+							<div v-if="text_question_3 !== ''">
+								<h5><img src="@/assets/img/icon_Q.svg" alt="" /> {{ text_question_3 }}</h5>
+								<div class="text">
+									{{ answer_2 }}
+								</div>
+							</div>
+							<div v-if="text_question_4 !== ''">
+								<h5><img src="@/assets/img/icon_Q.svg" alt="" /> {{ text_question_2 }}</h5>
+								<div class="text">
+									{{ answer_2 }}
+								</div>
+							</div>
+							<div v-if="text_question_5 !== ''">
+								<h5><img src="@/assets/img/icon_Q.svg" alt="" /> {{ text_question_5 }}</h5>
+								<div class="text">
+									{{ answer_2 }}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -152,10 +170,16 @@ export default {
 		videoPlayer,
 	},
 	computed: {
-		...mapGetters('applicant', ['getApplicantDetail']),
+		...mapGetters('applicant', ['getApplicantDetail', 'getPostDetail']),
 	},
 	data() {
 		return {
+			contents: '',
+			text_question_1: '',
+			text_question_2: '',
+			text_question_3: '',
+			text_question_4: '',
+			text_question_5: '',
 			advertisemenName: '',
 			applyUserNo: '',
 			nextUser: null,
@@ -199,6 +223,13 @@ export default {
 		async reload() {
 			this.advertisemenName = getAdvertisemenNameCookie();
 			await this.$store.dispatch('applicant/APPLICANT_DETAIL', this.$route.params.id);
+			await this.$store.dispatch('applicant/POST_DETAIL', this.$route.params.postId);
+			this.contents = this.getPostDetail.contents;
+			this.text_question_1 = this.getPostDetail.text_question_1;
+			this.text_question_2 = this.getPostDetail.text_question_2;
+			this.text_question_3 = this.getPostDetail.text_question_3;
+			this.text_question_4 = this.getPostDetail.text_question_4;
+			this.text_question_5 = this.getPostDetail.text_question_5;
 			this.like = this.getApplicantDetail.like;
 			this.nextUser = this.getApplicantDetail.nextUser;
 			this.prevUser = this.getApplicantDetail.prevUser;
@@ -264,5 +295,11 @@ export default {
 }
 .opacity {
 	opacity: 0.3;
+}
+.question > div {
+	margin-bottom: 20px;
+}
+.question > div:last-child {
+	margin-bottom: 0px;
 }
 </style>

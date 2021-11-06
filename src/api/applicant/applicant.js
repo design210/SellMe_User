@@ -12,6 +12,9 @@ function getApplicantAdvList(data) {
 function getApplicantDetail(id) {
 	return createInstanceWithAuth(`/apply/${id}`, {}, {}, 'application/json; charset=utf-8').get();
 }
+function getPostDetail(id) {
+	return createInstanceWithAuth(`/post/${id}`, {}, {}, 'application/json; charset=utf-8').get();
+}
 function getApplicantLikeList(data) {
 	let param = {
 		pageNo: data.pageNo,
@@ -19,4 +22,4 @@ function getApplicantLikeList(data) {
 	};
 	return createInstanceWithAuth(`/apply/post/${data.id}/liked`, {}, param, 'application/json; charset=utf-8').get();
 }
-export { getApplicantList, getApplicantAdvList, getApplicantDetail, getApplicantLikeList };
+export { getApplicantList, getApplicantAdvList, getApplicantDetail, getApplicantLikeList, getPostDetail };
