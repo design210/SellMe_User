@@ -4,7 +4,9 @@
 			<nav class="lnb">
 				<p>채용 공고</p>
 				<ul class="position_name" v-for="(item, index) in uiList" :key="index">
-					<li @click="[callList({ postNo: item.postNo, subject: item.subject }), resetTab()]">{{ item.subject }}</li>
+					<li @click="[callLikeList({ postNo: item.postNo }), callList({ postNo: item.postNo, subject: item.subject }), resetTab()]">
+						{{ item.subject }}
+					</li>
 				</ul>
 			</nav>
 
@@ -218,8 +220,9 @@ export default {
 			this.reload();
 		},
 		tab(n) {
+			this.callList(this.posNo);
+			this.callLikeList(this.posNo);
 			this.excelSet(n);
-			this.reload();
 		},
 	},
 	methods: {
@@ -248,7 +251,10 @@ export default {
 			this.totalPage = this.getApplicantAdvList.totalPage;
 			this.excelSet(this.tab);
 		},
-		async callLikeList() {
+		async callLikeList(data) {
+			if (data !== undefined) {
+				this.postNo = data.postNo;
+			}
 			await this.$store.dispatch('applicant/APPLICANT_LIKE_LIST', {
 				id: this.postNo,
 				pageNo: this.pageLikeNo,
