@@ -406,18 +406,18 @@ hr{
 .appList_container{
 	display: flex;
 }
-nav{
+nav.lnb{
 	min-width: 200px;
 	background-color: #343434;	
 	margin-right: 40px;
 }
-nav p{
+nav.lnb p{
 	font-size: 13px;
 	font-weight: 700;
 	color: #959595;
 	margin: 32px 25px 15px 25px;
 }
-nav ul li{
+nav.lnb ul li{
 	width: 170px;
 	height: 36px;
 	line-height: 36px;
@@ -435,7 +435,7 @@ nav ul li{
 	font-weight: 700;
 }
 
-nav ul li{
+nav.lnb ul li{
 	text-decoration: none;
 	font-size: 15px;
 	color: #FFFFFF;
@@ -680,15 +680,16 @@ footer{
     margin-top: 25px;
 }
 /* add */
+.v-pagination i{display:none !important}
 .v-pagination__item{color:#000 !important;border:0;font-size:12px !important;box-shadow:0px 3px 1px -2px rgb(0 0 0 / 0%) !important}
 .v-pagination__item--active{color:#FF4124 !important;background-color: #FFEFED !important;}
 .v-application .v-pagination__item--active.primary{background-color: #FFEFED !important;}
 .v-pagination li:first-child button{border:0;background: url('../assets/img/icon_pg_arrowL.svg')no-repeat center center !important;box-shadow:0px 3px 1px -2px rgb(0 0 0 / 0%) !important}
 .v-pagination li:last-child button{border:0;background: url('../assets/img/icon_pg_arrowR.svg')no-repeat center center !important;box-shadow:0px 3px 1px -2px rgb(0 0 0 / 0%) !important}
+
 select {font-size:12px !important;border:1px solid gray !important;padding:0 5px;-webkit-appearance:auto !important}
 .file-input .v-icon{display:none !important}
 input[type="text"]:read-only{background-color: #e7e7e7 !important;}
 .v-date-picker-table td{padding:0 !important}
 .v-input.date .v-text-field__slot input{font-size:12px;padding-left:10px;}
 .v-input.date {width:84px;}
-.v-pagination i{display:none !important}

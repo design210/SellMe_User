@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<div class="header_container">
-			<div class="header_logo">
+			<div class="header_logo" @click="$router.push('/main')" style="cursor: pointer">
 				<img :src="companyLogo" alt="" />
 			</div>
 			<div class="header_currentPage">{{ companyName }} 지원자 관리 시스템</div>

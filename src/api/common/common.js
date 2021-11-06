@@ -7,4 +7,9 @@ function fileUpload(data) {
 	};
 	return createInstanceWithAuth('/auth/signedUrl', paramData, {}, 'application/json; charset=utf-8').post();
 }
-export { fileUpload };
+
+function setLike(data) {
+	return createInstanceWithAuth(`/company/${data.applyUserNo}/apply`, {}, {}, 'application/json; charset=utf-8').put();
+}
+
+export { fileUpload, setLike };

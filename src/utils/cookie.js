@@ -12,6 +12,9 @@ function saveCompanyLogoCookie(value) {
 function saveCompanyUserNoCookie(value) {
 	VueCookies.set('companyUserNo', value, '0');
 }
+function saveAdvertisemenNameCookie(value) {
+	VueCookies.set('advertisemenName', value, '0');
+}
 //호출
 function getAccessTokenCookie() {
 	return VueCookies.get('accessToken');
@@ -25,12 +28,16 @@ function getCompanyLogoCookie() {
 function getCompanyUserNoCookie() {
 	return VueCookies.get('companyUserNo');
 }
+function getAdvertisemenNameCookie() {
+	return VueCookies.get('advertisemenName');
+}
 //삭제
 function deleteCookie(value) {
 	VueCookies.remove(value);
 }
 
 export {
+	getAdvertisemenNameCookie,
 	saveCompanyUserNoCookie,
 	getCompanyUserNoCookie,
 	saveAccessTokenCookie,
@@ -40,4 +47,5 @@ export {
 	getCompanyLogoCookie,
 	getCompanyNameCookie,
 	saveCompanyLogoCookie,
+	saveAdvertisemenNameCookie,
 };

@@ -24,7 +24,7 @@ const router = new VueRouter({
 			meta: { unauthorized: true },
 		},
 		{
-			path: '/applicant/detail',
+			path: '/applicant/detail/:id',
 			name: 'applicant_detail',
 			components: {
 				top,

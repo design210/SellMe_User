@@ -1,4 +1,4 @@
-import { fileUpload } from '@/api/common/common';
+import { fileUpload, setLike } from '@/api/common/common';
 const common = {
 	namespaced: true,
 	state: {
@@ -18,6 +18,9 @@ const common = {
 		async FILE_UPLOAD({ commit }, datas) {
 			const { data } = await fileUpload(datas);
 			commit('getFileInfo', data);
+		},
+		async LIKE({ commit }, datas) {
+			await setLike(datas);
 		},
 	},
 };
