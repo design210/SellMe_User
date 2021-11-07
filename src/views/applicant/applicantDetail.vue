@@ -111,8 +111,8 @@
 					<div class="memo">
 						<h5>메모</h5>
 						<div class="memo_input">
-							<textarea class="memo_text"></textarea>
-							<button type="button" class="memo_btn">등록</button>
+							<textarea class="memo_text" v-model="memoWrite"></textarea>
+							<button type="button" class="memo_btn" @click="memoReg">등록</button>
 						</div>
 						<div class="memo_contents">
 							<div class="memo_contents_empty">
@@ -120,32 +120,12 @@
 							</div>
 							<div class="memo_contents_history">
 								<ul class="memo_list">
-									<li>
-										<span>인류의 가치를 새 위하여서 영락과 것은 않는 사막이다.</span
-										><span style="color: #bebebe; font-size: 12px"><br />2021.10.12</span>
+									<li v-for="(item, index) in memo" :key="index">
+										<span>{{ item.contents }}</span
+										><span style="color: #bebebe; font-size: 12px"><br />{{ item.regDate.substr(0, 10) }}</span>
 										<hr />
 									</li>
-									<li>
-										<span>건국대학교 글로벌 캠퍼스 학사 졸업</span><span style="color: #bebebe; font-size: 12px"><br />작성 시간</span>
-										<hr />
-									</li>
-									<li>
-										<span>(주)컴퍼니제이 지원자 관리 시스템</span><span style="color: #bebebe; font-size: 12px"><br />작성 시간</span>
-										<hr />
-									</li>
-									<li>
-										<span>인류의 가치를 새 위하여서 영락과 것은 않는 사막이다.</span
-										><span style="color: #bebebe; font-size: 12px"><br />2021.10.12</span>
-										<hr />
-									</li>
-									<li>
-										<span>건국대학교 글로벌 캠퍼스 학사 졸업</span><span style="color: #bebebe; font-size: 12px"><br />작성 시간</span>
-										<hr />
-									</li>
-									<li>
-										<span>(주)컴퍼니제이 지원자 관리 시스템</span><span style="color: #bebebe; font-size: 12px"><br />작성 시간</span>
-										<hr />
-									</li>
+									<li v-if="memo.length === 0">메모가 없습니다.</li>
 								</ul>
 							</div>
 						</div>
@@ -170,10 +150,12 @@ export default {
 		videoPlayer,
 	},
 	computed: {
-		...mapGetters('applicant', ['getApplicantDetail', 'getPostDetail']),
+		...mapGetters('applicant', ['getApplicantDetail', 'getPostDetail', 'getAppicantMemo']),
 	},
 	data() {
 		return {
+			memo: [],
+			memoWrite: '',
 			contents: '',
 			text_question_1: '',
 			text_question_2: '',
@@ -218,6 +200,7 @@ export default {
 	},
 	mounted() {
 		this.reload();
+		this.memoList();
 	},
 	methods: {
 		async reload() {
@@ -254,6 +237,10 @@ export default {
 			this.isNew = resume.isNew;
 			this.introduction = resume.introduction;
 		},
+		async memoList() {
+			await this.$store.dispatch('applicant/APPLICANT_MEMO', this.$route.params.id);
+			this.memo = this.getAppicantMemo[0];
+		},
 		async likeSet() {
 			console.log(this.applyUserNo);
 			await await this.$store.dispatch('common/LIKE', { applyUserNo: this.applyUserNo });
@@ -266,6 +253,10 @@ export default {
 		next() {
 			this.$router.push(`/applicant/detail/${this.nextUser}`);
 			this.reload();
+		},
+		async memoReg() {
+			await this.$store.dispatch('applicant/APPLICANT_MEMO_WRITE', { contents: this.memoWrite, id: this.$route.params.id });
+			this.memoList();
 		},
 	},
 };

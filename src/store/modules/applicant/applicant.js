@@ -1,4 +1,12 @@
-import { getApplicantList, getApplicantAdvList, getApplicantDetail, getApplicantLikeList, getPostDetail } from '@/api/applicant/applicant';
+import {
+	getAppicantMemo,
+	getApplicantList,
+	getApplicantAdvList,
+	getApplicantDetail,
+	getApplicantLikeList,
+	getPostDetail,
+	getAppicantMemoWrite,
+} from '@/api/applicant/applicant';
 const applicant = {
 	namespaced: true,
 	state: {
@@ -7,6 +15,7 @@ const applicant = {
 		getApplicantDetail: {},
 		getApplicantLikeList: {},
 		getPostDetail: {},
+		getAppicantMemo: {},
 	},
 	getters: {
 		getApplicantList: state => {
@@ -24,6 +33,9 @@ const applicant = {
 		getPostDetail: state => {
 			return state.getPostDetail;
 		},
+		getAppicantMemo: state => {
+			return state.getAppicantMemo;
+		},
 	},
 	mutations: {
 		getApplicantList(state, data) {
@@ -40,6 +52,9 @@ const applicant = {
 		},
 		getPostDetail(state, data) {
 			state.getPostDetail = data;
+		},
+		getAppicantMemo(state, data) {
+			state.getAppicantMemo = data;
 		},
 	},
 	actions: {
@@ -62,6 +77,13 @@ const applicant = {
 		async POST_DETAIL({ commit }, datas) {
 			const { data } = await getPostDetail(datas);
 			commit('getPostDetail', data);
+		},
+		async APPLICANT_MEMO({ commit }, datas) {
+			const { data } = await getAppicantMemo(datas);
+			commit('getAppicantMemo', data);
+		},
+		async APPLICANT_MEMO_WRITE({ commit }, datas) {
+			await getAppicantMemoWrite(datas);
 		},
 	},
 };
